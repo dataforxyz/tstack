@@ -52,14 +52,23 @@ one appears.
    the change.
 5. **Babysit the PR** with the `babysit-pr` skill. Fix real findings and CI
    failures. Get proof for each fix before you push it.
-6. **Merge** when the merge gate passes.
-7. **Report** in your final message: the PR link, the merge commit, your proof,
-   and each decision you made for the user.
+6. **Schedule post-merge checks before merging.** Run the
+   `post-merge-double-check` skill after the merge gate passes and before you
+   merge. Both follow-ups must be scheduled successfully before you merge.
+   If the harness cannot provide reliable scheduled follow-ups, leave the PR
+   unmerged and ask the user how to proceed.
+7. **Merge** when the merge gate passes and the post-merge checks are scheduled.
+8. **Complete the post-merge checks.** Follow the scheduled checks until the
+   merge and expected behavior are verified or you have a concrete blocker.
+9. **Report** in your final message: the PR link, the merge commit, your proof,
+   the scheduled and completed checks, and each decision you made for the user.
 
-Stay active from step 1 to step 7. If you end your turn while checks or bots are
-pending, the work stops, because nobody will prompt you again. Wait with the
-watcher from `babysit-pr`, so something wakes you when the PR changes. In T3
-Code that is `watch_pull_request`. If you stop before the merge, call
+Stay active through the merge gate and the merge. While the PR is open and
+checks or reviews are pending, use the watcher from `babysit-pr`, so something
+wakes you when the PR changes. In T3 Code that is `watch_pull_request`. After
+the merge, hand off only after confirming both scheduled checks are enabled and
+their IDs and times are recorded; they must wake this thread to finish the
+post-merge verification. If you stop before the merge, call
 `unwatch_pull_request` first.
 
 ## Proof
